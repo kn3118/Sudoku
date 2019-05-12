@@ -1,0 +1,59 @@
+**********************************************************************
+		Question 5 - Findings
+**********************************************************************
+
+To start with it is important to have a definition of difficulty.
+By defining difficulty as the (average) amount of time it takes to
+solve a Sudoku puzzle I find the following results:
+
+Mystery1: A Sudoku board of “extremely hard” difficulty,
+Mystery2: A Sudoku board which is actually impossible to solve,
+Mystery3: A Sudoku board of “hard” difficulty.
+
+I also count the number of recursions it takes to solve every Sudoku
+board. One should expect that this number is positively correlated
+with our other measure of difficulty, named duration. My results
+verify this speculation. Mystery1 does 421,547 recursions to solve the
+puzzle, while Mystery3 needs 14,134 recursions to solve the
+puzzle. Mystery2 is unsolvable. Hence, this result further supports my
+classification of the Mystery boards according to the level of their difficulty.
+
+However, a striking result arises when I also test for the duration
+and the number of recursions of the ‘medium’ puzzle. I find that
+‘medium’ puzzle takes longer and needs more recursions to solve the
+puzzle than Mystery3 which has been classified as of “hard”
+difficulty. A possible reason for that is the search algorithm I use to solve
+the Sudoku puzzles. I have employed a backtracking algorithm starting
+from the top left corner of the board. The algorithm skips the
+pre-supplied cells and checks all the remaining cells for a valid
+number, moving back when there is a violation and moving forward again
+until the puzzle is solved. Eventually the algorithm either fails to
+reach the end of the board (puzzle unsolvable) or completes all cells
+and terminates by reaching the end of the board. One can think that
+starting from the top left corner is quite arbitrary and choosing a
+different starting position might be more efficient in solving some
+puzzles. Therefore, I decided to re-solve the puzzles starting from the
+four different corners of the board. In that way, we can get a more
+objective and robust measure of difficulty. Consequently, I solve
+every Sudoku board 4 times starting from a different corner every time
+and I collect the duration (in microseconds) and the number of
+recursions it takes to solve each Sudoku board every time. I then
+compute the average of these measurements for every Sudoku board. The
+results are illustrated in the following table:
+
+
+	   	Average Duration (microseconds)     Average Recursions		 
+Mystery1	     98,420		                143,040
+Mystery2	     ------ 	         		 ------
+Mystery3	     54,157			         69,004
+Medium		      8,175			          9,635
+Easy		      2,957				  2,973
+
+
+Based on the table results I classify the Mystery boards as follows:
+
+Mystery1: A Sudoku board of “extremely hard” difficulty,
+Mystery2: A Sudoku board which is actually impossible to solve,
+Mystery3: A Sudoku board of “hard” difficulty.
+
+**********************************************************************
